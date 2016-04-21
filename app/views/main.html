@@ -1,6 +1,14 @@
-<div class="jumbotron">
-  <h1>Gmail Statistics</h1>
-</div>
 <div class="row">
-  Some statistics..
+  <div class="col-md-4">
+    <h3>Labels</h3>
+    <ul class="list-group">
+      <li class="list-group-item" ng-repeat="label in main.labels">{{ label.name }}</li>
+    </ul>
+  </div>
+  <div class="col-md-8">
+    <h3>Messages</h3>
+    <ul class="list-group">
+      <li class="list-group-item" ng-repeat="message in main.messages">{{ message.id }}</li>
+    </ul>
+  </div>
 </div>

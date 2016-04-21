@@ -9,12 +9,17 @@
  */
 angular.module('gmailHistogramApp')
   .controller('MainCtrl', ['gmailApi', function (gmailApi) {
-    
-    var aaa = gmailApi.handleAuthClick();
-    
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+    var main = this;
+
+    gmailApi.authorize().then(function (authResult) {
+
+      gmailApi.getMessages().then(function messagesReceived(messages) {
+        main.messages = messages;
+      });
+
+      gmailApi.getLabels().then(function listLabels(labels) {
+        main.labels = labels;
+      });
+    });
+
   }]);
