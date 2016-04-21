@@ -2,16 +2,19 @@
 
 /**
  * @ngdoc function
- * @name gmailHistogramApp.controller:MainCtrl
+ * @name gmailHistogramApp.controller:AboutCtrl
  * @description
- * # MainCtrl
+ * # AboutCtrl
  * Controller of the gmailHistogramApp
  */
 angular.module('gmailHistogramApp')
-  .controller('MainCtrl', function () {
+  .controller('MainCtrl', ['gmailApi', function (gmailApi) {
+    
+    var aaa = gmailApi.handleAuthClick();
+    
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
       'Karma'
     ];
-  });
+  }]);
