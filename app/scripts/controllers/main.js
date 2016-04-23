@@ -8,7 +8,7 @@
  * Controller of the gmailHistogramApp
  */
 angular.module('gmailHistogramApp')
-  .controller('MainCtrl', ['$scope', 'gmailApi', function ($scope, gmailApi) {
+  .controller('MainCtrl', ['$scope', 'gmailApi', '$q', function ($scope, gmailApi, $q) {
     var main = this;
     main.messages = [];
 
@@ -18,34 +18,30 @@ angular.module('gmailHistogramApp')
 
     this.loadMessages = function loadMessages() {
       gmailApi.getMessageList().then(function messagesReceived(messages) {
-        messages.forEach(main.loadMessageById);
+        var loadMessageByIdPromises = messages.map(function(m) { return gmailApi.getMessageById(m.id) });
+        
+        $q.all(loadMessageByIdPromises).then(function (results) {
+            main.messages = results.map(function(r) { return { id: r.id, snippet: r.snippet } });
+            main.updateData();
+        });
       });
     };
-
-    this.loadMessageById = function loadMessageById(message) {
-      gmailApi.getMessageById(message.id).then(function (messageContent) {
-        $scope.$apply(function () {
-          main.messages.push({ id: message.id, snippet: messageContent.snippet });
-          main.updateData();
-        })
-      });
-    };
-
-    this.updateData = function updateData(){
+    
+    this.updateData = function updateData() {
       var items = _
         .chain(main.messages)
-        .map(function(msg) { return msg.snippet; })
-        .flatMap(function(str) { return str.split('') })
-        .map(function(str) { return str.toLowerCase(); })
+        .map(function (msg) { return msg.snippet; })
+        .flatMap(function (str) { return str.split('') })
+        .map(function (str) { return str.toLowerCase(); })
         .filter(function (char) { return char.match(/[a-z]/i); })
         .groupBy()
-        .map(function(items, key) { return { "name": key, "size": items.length }  })
+        .map(function (items, key) { return { "name": key, "size": items.length } })
         .value();
-        
+
       main.globData = {
         "name": "flare",
         "children": items
-        };
+      };
     };
 
     this.globData = {
