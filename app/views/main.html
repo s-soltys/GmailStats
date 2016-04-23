@@ -5,6 +5,9 @@
   <div class="col-md-2">
     <button ng-click="main.authAndLoadData()" class="btn btn-primary">Load</button>
   </div>
+  <div class="col-md-4">
+    <span ng-if="main.waiting">Please wait...</span>
+  </div>
 </div>
 <hr>
 <div class="row">
@@ -17,6 +20,6 @@
     </ul>
   </div>
   <div class="col-md-8">
-    <d3-bubble-chart data="main.globData"></d3-bubble-chart>
+    <d3-bubble-chart ng-if="main.chartData" data="main.chartData"></d3-bubble-chart>
   </div>
 </div>
