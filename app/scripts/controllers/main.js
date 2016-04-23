@@ -9,13 +9,13 @@
  */
 angular.module('gmailHistogramApp')
   .controller('MainCtrl', ['$scope', 'gmailApi', '$q', function ($scope, gmailApi, $q) {
-    var main = this;
-    main.messages = [];
-    main.chartData = null;
-    main.waiting = false;
+    var vm = this;
+    vm.messages = [];
+    vm.chartData = null;
+    vm.waiting = false;
 
     this.authAndLoadData = function loadGmailData() {
-      main.waiting = true;
+      vm.waiting = true;
       gmailApi.authorize().then(this.loadMessages);
     };
 
@@ -24,16 +24,16 @@ angular.module('gmailHistogramApp')
         var loadMessageByIdPromises = messages.map(function (m) { return gmailApi.getMessageById(m.id) });
 
         $q.all(loadMessageByIdPromises).then(function (results) {
-          main.messages = results.map(function (r) { return { id: r.id, snippet: r.snippet } });
-          main.updateData();
-          main.waiting = false;
+          vm.messages = results.map(function (r) { return { id: r.id, snippet: r.snippet } });
+          vm.updateData();
+          vm.waiting = false;
         });
       });
     };
 
     this.updateData = function updateData() {
       var items = _
-        .chain(main.messages)
+        .chain(vm.messages)
         .map(function (msg) { return msg.snippet; })
         .flatMap(function (s) { return s.split('') })
         .map(function (s) { return s.toLowerCase(); })
@@ -42,7 +42,7 @@ angular.module('gmailHistogramApp')
         .map(function (items, key) { return { "name": key, "size": items.length } })
         .value();
 
-      main.chartData = {
+      vm.chartData = {
         "name": "flare",
         "children": items
       };

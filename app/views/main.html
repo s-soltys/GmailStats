@@ -3,23 +3,23 @@
     <h4>Load gmail data:</h4>
   </div>
   <div class="col-md-2">
-    <button ng-click="main.authAndLoadData()" class="btn btn-primary">Load</button>
+    <button ng-click="vm.authAndLoadData()" class="btn btn-primary">Load</button>
   </div>
   <div class="col-md-4">
-    <span ng-if="main.waiting">Please wait...</span>
+    <span ng-if="vm.waiting">Please wait...</span>
   </div>
 </div>
 <hr>
 <div class="row">
   <div class="col-md-4">
-    <h3>Messages: {{ main.messages.length }}</h3>
+    <h3>Messages: {{ vm.messages.length }}</h3>
     <ul class="list-group">
-      <li class="list-group-item" ng-repeat="message in main.messages" id="{{ message.id }}">
+      <li class="list-group-item" ng-repeat="message in vm.messages" id="{{ message.id }}">
         <small ng-bind-html="message.snippet"></small>
       </li>
     </ul>
   </div>
   <div class="col-md-8">
-    <d3-bubble-chart ng-if="main.chartData" data="main.chartData"></d3-bubble-chart>
+    <d3-bubble-chart ng-if="vm.chartData" data="vm.chartData"></d3-bubble-chart>
   </div>
 </div>
