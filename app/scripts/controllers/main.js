@@ -8,18 +8,22 @@
  * Controller of the gmailHistogramApp
  */
 angular.module('gmailHistogramApp')
-  .controller('MainCtrl', ['gmailApi', function (gmailApi) {
+  .controller('MainCtrl', ['$scope', 'gmailApi', function ($scope, gmailApi) {
     var main = this;
+    main.messages = [];
 
-    gmailApi.authorize().then(function (authResult) {
-
-      gmailApi.getMessages().then(function messagesReceived(messages) {
-        main.messages = messages;
+    this.loadData = function loadGmailData() {
+      gmailApi.authorize().then(function (authResult) {
+        gmailApi.getMessages().then(function messagesReceived(messages) {
+          messages.forEach(function (message) {
+            gmailApi.getMessageById(message.id).then(function (messageContent) {
+              $scope.$apply(function () {
+                main.messages.push({ id: message.id, snippet: messageContent.snippet })
+              })
+            });
+          });
+        });
       });
-
-      gmailApi.getLabels().then(function listLabels(labels) {
-        main.labels = labels;
-      });
-    });
+    };
 
   }]);

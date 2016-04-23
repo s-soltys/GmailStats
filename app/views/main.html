@@ -1,14 +1,21 @@
 <div class="row">
   <div class="col-md-4">
-    <h3>Labels</h3>
+    <h4>Load gmail data:</h4>
+  </div>
+  <div class="col-md-2">
+    <button ng-click="main.loadData()" class="btn btn-primary">Load</button>
+  </div>
+</div>
+<hr>
+<div class="row">
+  <div class="col-md-4">
+    <h3>Messages: {{ main.messages.length }}</h3>
     <ul class="list-group">
-      <li class="list-group-item" ng-repeat="label in main.labels">{{ label.name }}</li>
+      <li class="list-group-item" ng-repeat="message in main.messages" id="{{ message.id }}">
+        <small ng-bind-html="message.snippet"></small>
+      </li>
     </ul>
   </div>
   <div class="col-md-8">
-    <h3>Messages</h3>
-    <ul class="list-group">
-      <li class="list-group-item" ng-repeat="message in main.messages">{{ message.id }}</li>
-    </ul>
   </div>
 </div>

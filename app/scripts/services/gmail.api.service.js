@@ -33,16 +33,25 @@ angular
                     });
             });
         };
+        
+        this.getMessageById = function getMessageById(messageId) {
+            return gapi.client.load('gmail', 'v1')
+                .then(function listMessagesResult() {
+                    return gapi.client.gmail.users.messages.get({ 'userId': 'me', 'id': messageId, 'format': 'raw' });
+                })
+                .then(function getResult(response) {
+                    return response.result;
+                });
+        }
 
         this.getMessages = function getMessages(params) {
-            return $q(function (resolve, reject) {
-                gapi.client.load('gmail', 'v1', function listMessagesResult() {
-                    var request = gapi.client.gmail.users.messages.list({ 'userId': 'me' });
-                    request.execute(function (resp) {
-                        resolve(resp.messages);
-                    });
+            return gapi.client.load('gmail', 'v1')
+                .then(function listMessagesResult() {
+                    return gapi.client.gmail.users.messages.list({ 'userId': 'me' });
+                })
+                .then(function getResult(response) {
+                    return response.result.messages;
                 });
-            });
         };
 
         this.getLabels = function listLabels() {
