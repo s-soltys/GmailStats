@@ -12,17 +12,21 @@ angular.module('gmailHistogramApp')
     var main = this;
     main.messages = [];
 
-    this.loadData = function loadGmailData() {
-      gmailApi.authorize().then(function (authResult) {
-        gmailApi.getMessages().then(function messagesReceived(messages) {
-          messages.forEach(function (message) {
-            gmailApi.getMessageById(message.id).then(function (messageContent) {
-              $scope.$apply(function () {
-                main.messages.push({ id: message.id, snippet: messageContent.snippet })
-              })
-            });
-          });
-        });
+    this.authAndLoadData = function loadGmailData() {
+      gmailApi.authorize().then(this.loadMessages);
+    };
+
+    this.loadMessages = function loadMessages() {
+      gmailApi.getMessageList().then(function messagesReceived(messages) {
+        messages.forEach(main.loadMessageById);
+      });
+    };
+
+    this.loadMessageById = function loadMessageById(message) {
+      gmailApi.getMessageById(message.id).then(function (messageContent) {
+        $scope.$apply(function () {
+          main.messages.push({ id: message.id, snippet: messageContent.snippet })
+        })
       });
     };
 

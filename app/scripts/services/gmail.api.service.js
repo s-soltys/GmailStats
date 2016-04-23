@@ -44,7 +44,7 @@ angular
                 });
         }
 
-        this.getMessages = function getMessages(params) {
+        this.getMessageList = function getMessageList(params) {
             return gapi.client.load('gmail', 'v1')
                 .then(function listMessagesResult() {
                     return gapi.client.gmail.users.messages.list({ 'userId': 'me' });
@@ -52,16 +52,5 @@ angular
                 .then(function getResult(response) {
                     return response.result.messages;
                 });
-        };
-
-        this.getLabels = function listLabels() {
-            return $q(function (resolve, reject) {
-                gapi.client.load('gmail', 'v1', function listLabelsResult() {
-                    var request = gapi.client.gmail.users.labels.list({ 'userId': 'me' });
-                    request.execute(function (resp) {
-                        resolve(resp.labels);
-                    });
-                });
-            });
         };
     }]);
