@@ -8,12 +8,12 @@
  * Controller of the gmailHistogramApp
  */
 angular.module('gmailHistogramApp')
-  .controller('MainCtrl', ['$scope', 'gmailApi', '$q', function ($scope, gmailApi, $q) {
+  .controller('MainCtrl', ['$scope', 'gmailApi', 'letterHistogram', '$q', function ($scope, gmailApi, letterHistogram, $q) {
     var vm = this;
     vm.messages = [];
     vm.chartData = null;
     vm.waiting = false;
-
+    
     this.authAndLoadData = function loadGmailData() {
       vm.waiting = true;
       gmailApi.authorize().then(this.loadMessages);
@@ -32,19 +32,13 @@ angular.module('gmailHistogramApp')
     };
 
     this.updateData = function updateData() {
-      var items = _
-        .chain(vm.messages)
-        .map(function (msg) { return msg.snippet; })
-        .flatMap(function (s) { return s.split('') })
-        .map(function (s) { return s.toLowerCase(); })
-        .filter(function (s) { return s.match(/[a-z]/i); })
-        .groupBy()
-        .map(function (items, key) { return { "name": key, "size": items.length } })
-        .value();
+      var msgArray = vm.messages.map(function(msg) { return msg.snippet; });
+      var histogram = letterHistogram.create(msgArray);
+      var chartChildren = _.map(histogram, function(count, letter) { return { "name": letter, "size": count }; });
 
       vm.chartData = {
         "name": "flare",
-        "children": items
+        "children": chartChildren
       };
     };
     
