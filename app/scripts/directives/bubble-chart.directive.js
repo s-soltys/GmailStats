@@ -50,7 +50,7 @@ angular
                 data: '='
             },
             link: function (scope, element, attrs) {
-                var diameter = 500;
+                var diameter = 450;
                 var svg = d3.select(element[0]).append('svg');
                 svg.attr({
                     'width': diameter,

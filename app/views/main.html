@@ -1,11 +1,14 @@
 <gmail-message-loader on-load-messages="vm.onLoadMessages(messages)"></gmail-message-loader>
-<hr>
-<div class="row">
-  <div class="col-md-4">
-    <h3>Messages: {{ vm.messages.length }}</h3>
-    <message-list messages="vm.messages" show-details="vm.showDetails(message)"></message-list>
-  </div>
-  <div class="col-md-8">
-    <d3-bubble-chart ng-if="vm.chartData" data="vm.chartData"></d3-bubble-chart>
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-4">
+        <h3>Messages:</h3>
+        <message-list messages="vm.messages" show-details="vm.showDetails(message)"></message-list>
+      </div>
+      <div class="col-md-8">
+        <d3-bubble-chart ng-if="vm.chartData" data="vm.chartData"></d3-bubble-chart>
+      </div>
+    </div>
   </div>
 </div>
