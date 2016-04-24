@@ -22,9 +22,7 @@ angular
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl',
-        controllerAs: 'vm'
+        template: '<messages-view></messages-view>'
       })
       .otherwise({
         redirectTo: '/'

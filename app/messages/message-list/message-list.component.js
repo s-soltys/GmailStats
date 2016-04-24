@@ -8,7 +8,7 @@
   angular
     .module('gmailHistogramApp')
     .component('messageList', {
-      templateUrl: 'scripts/message-list/message-list.html',
+      templateUrl: 'messages/message-list/message-list.html',
       controller: messageList,
       bindings: {
         messages: '<',

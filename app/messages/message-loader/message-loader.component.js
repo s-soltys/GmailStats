@@ -34,8 +34,8 @@
 
     angular
         .module('gmailHistogramApp')
-        .component('gmailMessageLoader', {
-            templateUrl: 'scripts/gmail-message-loader/gmail-message-loader.html',
+        .component('messageLoader', {
+            templateUrl: 'messages/message-loader/message-loader.html',
             controller: messageLoaderController,
             bindings: {
                 onLoadMessages: '&'
