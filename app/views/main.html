@@ -13,11 +13,7 @@
 <div class="row">
   <div class="col-md-4">
     <h3>Messages: {{ vm.messages.length }}</h3>
-    <ul class="list-group">
-      <li class="list-group-item" ng-repeat="message in vm.messages" id="{{ message.id }}">
-        <small ng-bind-html="message.snippet"></small>
-      </li>
-    </ul>
+    <message-list messages="vm.messages" show-details="vm.showDetails(message)"></message-list>
   </div>
   <div class="col-md-8">
     <d3-bubble-chart ng-if="vm.chartData" data="vm.chartData"></d3-bubble-chart>
