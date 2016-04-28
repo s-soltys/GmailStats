@@ -21,25 +21,22 @@ var drawModule = (function () {
             .padding(1.5);
 
         var flatData = bubble.nodes(flattenData(inputData)).filter(function (d) { return !d.children; });
+        
+        var node = svg.selectAll("g").data(flatData);
+        
+        var appendedNode = node.enter().append("g").attr("class", "node");
+        appendedNode.append("circle");
+        appendedNode.append("text").attr("dy", ".3em").style("text-anchor", "middle");
+            
+        node.attr("transform", function (d) { return "translate(" + d.x + "," + d.y + ")"; });
 
-        var node = svg.selectAll("g")
-            .data(flatData)
-            .enter()
-            .append("g")
-            .attr("class", "node")
-            .attr("transform", function (d) { return "translate(" + d.x + "," + d.y + ")"; });
-
-        node.append("title")
-            .text(function (d) { return d.className + ": " + format(d.value); });
-
-        node.append("circle")
+        node.select("circle")
             .attr("r", function (d) { return d.r; })
             .style("fill", function (d) { return color(d.packageName); });
 
-        node.append("text")
-            .attr("dy", ".3em")
-            .style("text-anchor", "middle")
-            .text(function (d) { return d.className.toUpperCase(); });
+        node.select("text").text(function (d) { return d.className.toUpperCase(); });
+            
+        node.exit().remove();
     };
 } ());
 
