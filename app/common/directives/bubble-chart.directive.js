@@ -4,7 +4,7 @@
     angular
     .module('gmailHistogramApp')
     .directive('d3BubbleChart', d3BubbleChartDirective);
-    
+
     d3BubbleChartDirective.$inject = ['$window'];
 
     function d3BubbleChartDirective($window) {
@@ -13,36 +13,38 @@
             scope: {
                 data: '='
             },
-            link: function (scope, element, attrs) {
-                var diameter = 450;
-                var svg = d3.select(element[0]).append('svg');
+            link: link
+        };
 
-                svg.attr({
-                    'width': diameter,
-                    'height': diameter,
-                    'class': 'bubble'
+        function link(scope, element, attrs) {
+            var diameter = 450;
+            var svg = d3.select(element[0]).append('svg');
+
+            svg.attr({
+                'width': diameter,
+                'height': diameter,
+                'class': 'bubble'
+            });
+
+            $window.onresize = function () {
+                scope.$apply();
+            };
+
+            scope.$watch(
+                function () {
+                    return angular.element($window)[0].innerWidth;
+                },
+                function () {
+                    draw(svg, diameter, scope.data);
                 });
 
-                $window.onresize = function () {
-                    scope.$apply();
-                };
-
-                scope.$watch(
-                    function () {
-                        return angular.element($window)[0].innerWidth;
-                    },
-                    function () {
-                        draw(svg, diameter, scope.data);
-                    });
-
-                scope.$watch('data',
-                    function () {
-                        draw(svg, diameter, scope.data);
-                    });
-            }
+            scope.$watch('data',
+                function () {
+                    draw(svg, diameter, scope.data);
+                });
         };
     };
-    
+
     function flattenData(root) {
         var classes = [];
         function recurse(name, node) {
