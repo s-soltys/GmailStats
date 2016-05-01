@@ -1,12 +1,22 @@
-'use strict';
+(function () {
+    'use strict';
 
-angular
+    angular
     .module('gmailHistogramApp')
-    .service('gmailApi', ['$q', function ($q) {
+    .service('gmailApi', GmailApiService);
+    
+    GmailApiService.$inject = ['$q'];
+
+    function GmailApiService($q) {
         var CLIENT_ID = '272636970927-ul1mrflj9a7sc697k9ldkt5r28pfahal.apps.googleusercontent.com';
         var SCOPES = ['https://www.googleapis.com/auth/gmail.readonly'];
+        
+        this.checkAuth = checkAuth;
+        this.authorize = authorize;
+        this.getMessageById = getMessageById;
+        this.getMessageList = getMessageList;
 
-        this.checkAuth = function checkAuth() {
+        function checkAuth() {
             return $q(function (resolve, reject) {
                 gapi.auth.authorize(
                     { 'client_id': CLIENT_ID, 'scope': SCOPES.join(' '), 'immediate': true },
@@ -20,7 +30,7 @@ angular
             });
         };
 
-        this.authorize = function authorize(event) {
+        function authorize(event) {
             return $q(function (resolve, reject) {
                 gapi.auth.authorize(
                     { 'client_id': CLIENT_ID, 'scope': SCOPES, 'immediate': false },
@@ -33,8 +43,8 @@ angular
                     });
             });
         };
-        
-        this.getMessageById = function getMessageById(messageId) {
+
+        function getMessageById(messageId) {
             return gapi.client.load('gmail', 'v1')
                 .then(function listMessagesResult() {
                     return gapi.client.gmail.users.messages.get({ 'userId': 'me', 'id': messageId, 'format': 'raw' });
@@ -44,7 +54,7 @@ angular
                 });
         }
 
-        this.getMessageList = function getMessageList(params) {
+        function getMessageList(params) {
             return gapi.client.load('gmail', 'v1')
                 .then(function listMessagesResult() {
                     return gapi.client.gmail.users.messages.list({ 'userId': 'me' });
@@ -53,4 +63,7 @@ angular
                     return response.result.messages;
                 });
         };
-    }]);
+    };
+    
+})();
+

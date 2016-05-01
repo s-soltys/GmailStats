@@ -1,9 +1,19 @@
-'use strict';
-
 (function () {
     'use strict';
 
-    var statsViewController = ['$scope', 'gmailApi', 'letterHistogram', '$q', function ($scope, gmailApi, letterHistogram, $q) {
+    angular
+    .module('gmailHistogramApp')
+    .component('messagesView', {
+        templateUrl: 'messages/messages-view/messages-view.html',
+        controller: MessagesViewController,
+        bindings: {
+            
+        }
+    });
+        
+    MessagesViewController.$inject = ['$scope', 'gmailApi', 'letterHistogram', '$q'];
+
+    function MessagesViewController($scope, gmailApi, letterHistogram, $q) {
         var ctrl = this;
         ctrl.messages = [];
         ctrl.chartData = null;
@@ -37,15 +47,6 @@
             };
         }
 
-    }]
+    };
 
-    angular
-        .module('gmailHistogramApp')
-        .component('messagesView', {
-            templateUrl: 'messages/messages-view/messages-view.html',
-            controller: statsViewController,
-            bindings: {
-                
-            }
-        });
 } ());

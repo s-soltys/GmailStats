@@ -1,18 +1,21 @@
 (function () {
   'use strict';
   
-  var messageList = ['$scope', '$element', '$attrs', '$q', function MessageList($scope, $element, $attrs, $q) {
-    var ctrl = this;
-  }];
-  
   angular
-    .module('gmailHistogramApp')
-    .component('messageList', {
-      templateUrl: 'messages/message-list/message-list.html',
-      controller: messageList,
-      bindings: {
-        messages: '<',
-        showDetails: '&'
-      }
-    });
+  .module('gmailHistogramApp')
+  .component('messageList', {
+    templateUrl: 'messages/message-list/message-list.html',
+    controller: MessageListController,
+    bindings: {
+      messages: '<',
+      showDetails: '&'
+    }
+  });
+    
+  MessageListController.$inject = ['$scope', '$element', '$attrs', '$q'];
+  
+  function MessageListController($scope, $element, $attrs, $q) {
+    var ctrl = this;
+  };
+  
 } ());
