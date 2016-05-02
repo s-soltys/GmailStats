@@ -11,7 +11,8 @@
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'util.exception'
+    'app.exception',
+    'app.charts'
   ]);
 
 })();

@@ -2,16 +2,16 @@
     'use strict';
 
     angular
-    .module('gmailHistogramApp')
-    .directive('d3BubbleChart', d3BubbleChartDirective);
+    .module('app.charts', [])
+    .directive('d3BubbleChart', D3BubbleChartDirective);
 
-    d3BubbleChartDirective.$inject = ['$window'];
+    D3BubbleChartDirective.$inject = ['$window'];
 
-    function d3BubbleChartDirective($window) {
+    function D3BubbleChartDirective($window) {
         return {
             restrict: 'EA',
             scope: {
-                data: '='
+                data: '<'
             },
             link: link
         };

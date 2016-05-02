@@ -2,7 +2,7 @@
     'use strict';
     
     angular
-    .module('util.exception', [])
+    .module('app.exception', [])
     .config(ExceptionConfig);
 
     ExceptionConfig.$inject = ['$provide'];
