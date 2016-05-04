@@ -1,5 +1,5 @@
 <ul class="list-group">
-    <li class="list-group-item" ng-repeat="message in $ctrl.messages" id="{{ message.id }}" ng-click="$ctrl.showDetails({ message: message })">
+    <li class="list-group-item" ng-repeat="message in vm.messages" id="{{ message.id }}" ng-click="vm.showDetails({ message: message })">
         <small ng-bind-html="message.snippet"></small>
     </li>
 </ul>

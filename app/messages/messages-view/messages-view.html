@@ -1,13 +1,13 @@
-<message-loader on-load-messages="$ctrl.onLoadMessages(messages)"></message-loader>
+<message-loader on-load-messages="vm.onLoadMessages(messages)"></message-loader>
 <div class="panel panel-default">
   <div class="panel-body">
     <div class="row">
       <div class="col-md-4">
         <h3>Messages:</h3>
-        <message-list messages="$ctrl.messages" show-details="$ctrl.showDetails(message)"></message-list>
+        <message-list messages="vm.messages" show-details="vm.showDetails(message)"></message-list>
       </div>
       <div class="col-md-8">
-        <d3-bubble-chart ng-if="$ctrl.chartData" data="$ctrl.chartData"></d3-bubble-chart>
+        <d3-bubble-chart ng-if="vm.chartData" data="vm.chartData"></d3-bubble-chart>
       </div>
     </div>
   </div>

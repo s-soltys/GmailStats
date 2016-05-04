@@ -6,6 +6,7 @@
     .component('messagesView', {
         templateUrl: 'messages/messages-view/messages-view.html',
         controller: MessagesViewController,
+        controllerAs: 'vm',
         bindings: {
             
         }
@@ -14,17 +15,17 @@
     MessagesViewController.$inject = ['$scope', 'gmailApi', 'letterHistogram', '$q'];
 
     function MessagesViewController($scope, gmailApi, letterHistogram, $q) {
-        var ctrl = this;
-        ctrl.messages = [];
-        ctrl.chartData = null;
+        var vm = this;
+        vm.messages = [];
+        vm.chartData = null;
 
         this.onLoadMessages = function onLoadMessages(messages) {
-            ctrl.messages = messages;
+            vm.messages = messages;
 
             var msgArray = messages.map(function (msg) { return msg.snippet; });
             var histogram = letterHistogram.create(msgArray);
 
-            ctrl.chartData = ctrl.formChartData(histogram);
+            vm.chartData = vm.formChartData(histogram);
         };
 
         this.formChartData = function (histogram) {
