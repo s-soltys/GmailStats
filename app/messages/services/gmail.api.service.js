@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-    .module('gmailHistogramApp')
+    .module('gs.messages')
     .service('gmailApi', GmailApiService);
     
     GmailApiService.$inject = ['$q'];

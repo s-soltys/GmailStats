@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-    .module('app.charts', [])
+    .module('gs.charts', [])
     .directive('d3BubbleChart', D3BubbleChartDirective);
 
     D3BubbleChartDirective.$inject = ['$window'];

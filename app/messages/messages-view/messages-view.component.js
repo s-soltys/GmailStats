@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-    .module('gmailHistogramApp')
+    .module('gs.messages')
     .component('messagesView', {
         template: require('./messages-view.html'),
         controller: MessagesViewController,

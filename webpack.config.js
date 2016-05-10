@@ -1,19 +1,7 @@
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    entry: [
-        './app/app.ts',
-        './app/messages/services/gmail.api.service',
-        './app/messages/services/letter-histogram.service',
-        './app/messages/message-loader/message-loader.component',
-        './app/messages/messages-view/messages-view.component',
-        './node_modules/bootstrap/dist/js/bootstrap',
-        './node_modules/angular-route/angular-route',
-        './node_modules/d3/d3',
-        './node_modules/lodash/lodash',
-        './app/styles/main',
-        './node_modules/bootstrap/dist/css/bootstrap',
-        ],
+    entry: ['./app/app.ts'],
 
     output: {
         filename: 'build.js',
