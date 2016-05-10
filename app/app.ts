@@ -5,7 +5,7 @@ import 'angular-sanitize';
 import 'angular-route';
 import './messages/messagesModule';
 
-import './charts/bubble-chart.directive';
+import './charts/chartsModule';
 
 angular
 .module('gmailHistogramApp', [
