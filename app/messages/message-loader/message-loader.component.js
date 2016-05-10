@@ -4,7 +4,7 @@
     angular
     .module('gmailHistogramApp')
     .component('messageLoader', {
-        templateUrl: 'messages/message-loader/message-loader.html',
+        template: require('./message-loader.html'),
         controller: MessageLoaderController,
         controllerAs: 'vm',
         bindings: {

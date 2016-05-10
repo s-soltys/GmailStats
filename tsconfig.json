@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "sourceMap": true,
+        "noImplicitAny": false,
+        "removeComments": true
+    },
+    "exclude": [
+        "dist",
+        "node_modules",
+        "typings/main.d.ts",
+        "typings/main"
+    ]
+}

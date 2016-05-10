@@ -4,7 +4,7 @@
     angular
     .module('gmailHistogramApp')
     .component('messagesView', {
-        templateUrl: 'messages/messages-view/messages-view.html',
+        template: require('./messages-view.html'),
         controller: MessagesViewController,
         controllerAs: 'vm',
         bindings: {
