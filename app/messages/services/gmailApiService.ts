@@ -12,21 +12,7 @@ export class GmailApiService {
 
     }
 
-    checkAuth() {
-        return this.$q(function (resolve, reject) {
-            gapi.auth.authorize(
-                { 'client_id': GmailApiService.CLIENT_ID, 'scope': GmailApiService.SCOPES.join(' '), 'immediate': true },
-                function handleAuth(authResult) {
-                    if (authResult && !authResult.error) {
-                        resolve(authResult);
-                    } else {
-                        reject(authResult);
-                    }
-                });
-        });
-    };
-
-    authorize(event) {
+    authorize(event): angular.IPromise<any> {
         return this.$q(function (resolve, reject) {
             gapi.auth.authorize(
                 { 'client_id': GmailApiService.CLIENT_ID, 'scope': GmailApiService.SCOPES, 'immediate': false },
@@ -38,25 +24,27 @@ export class GmailApiService {
                     }
                 });
         });
-    };
-
-    getMessageById(messageId) {
-        return gapi.client.load('gmail', 'v1')
-            .then(function listMessagesResult() {
-                return gapi.client.gmail.users.messages.get({ 'userId': 'me', 'id': messageId, 'format': 'raw' });
-            })
-            .then(function getResult(response) {
-                return response.result;
-            });
     }
 
-    getMessageList(params) {
-        return gapi.client.load('gmail', 'v1')
-            .then(function listMessagesResult() {
-                return gapi.client.gmail.users.messages.list({ 'userId': 'me' });
+    getMessageById(messageId: string): angular.IPromise<any> {
+        return this.callApi(() => {
+            return gapi.client.gmail.users.messages.get({ 'userId': 'me', 'id': messageId, 'format': 'raw' });
+        });
+    }
+
+    getMessageList(): angular.IPromise<any> {
+        return this
+            .callApi(() => {
+                return gapi.client.gmail.users.messages.list({ 'userId': 'me' }); 
             })
-            .then(function getResult(response) {
-                return response.result.messages;
-            });
-    };
+            .then(result => result.messages);
+    }
+    
+    private callApi(clientCall: Function): angular.IPromise<any> {
+        return this.$q((resolve, reject) => {
+            gapi.client.load('gmail', 'v1')
+                .then(() => clientCall())
+                .then((response) => resolve(response.result));
+        });
+    }
 };

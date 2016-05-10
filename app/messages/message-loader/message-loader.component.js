@@ -39,10 +39,8 @@
 
                 loadMessageByIdPromises.forEach(function (loadMessagePromise, index) {
                     loadMessagePromise.then(function (results) {
-                        $scope.$apply(function () {
-                            vm.messages.push({ id: results.id, snippet: results.snippet });
-                            vm.onLoadMessages({ messages: vm.messages });
-                        });
+                        vm.messages.push({ id: results.id, snippet: results.snippet });
+                        vm.onLoadMessages({ messages: vm.messages });
                     });
                 });
 
