@@ -1,13 +1,14 @@
 import * as angular from 'angular';
-import {MessageListComponent} from './messageList';
 import {LetterHistogramService} from './services/letterHistogramService';
+import {GmailApiService} from './services/gmailApiService';
+import {MessageListComponent} from './messageList';
 import {MessageViewComponent} from './messagesViewComponent';
         
 angular
 .module('gs.messages', [])
 .component('messageList', new MessageListComponent())
 .component('messagesView', new MessageViewComponent())
-.service('letterHistogram', LetterHistogramService);
+.service('letterHistogram', LetterHistogramService)
+.service('gmailApi', GmailApiService);
 
-import './services/gmail.api.service';
 import './message-loader/message-loader.component';

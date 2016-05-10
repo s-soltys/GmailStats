@@ -10,7 +10,7 @@ export class LetterHistogramService {
             .filter(s => s.match(/[a-z]/i))
             .value();
             
-        let initHistogram: {[key: string]: number} = { };
+        let initHistogram: {[key: string]: number} = {};
         
         let histogram = _.reduce(formattedLetters, (acc, letter) => {
                 acc[letter] = (acc[letter] || 0) + 1;
