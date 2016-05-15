@@ -25,15 +25,15 @@ export class BubbleChartDirective implements ng.IDirective {
 
             scope.$watch(
                 () => svgElement.clientWidth,
-                () => this.draw(svg, svgElement.clientWidth, scope.data));
+                () => BubbleChartDirective.draw(svg, svgElement.clientWidth, scope.data));
 
             scope.$watch(
                 'data',
-                () => this.draw(svg, svgElement.clientWidth, scope.data));
+                () => BubbleChartDirective.draw(svg, svgElement.clientWidth, scope.data));
         };
     }
 
-    draw(svg: d3.Selection<any>, diameter: number, inputData: any) {
+    static draw(svg: d3.Selection<any>, diameter: number, inputData: any) {
         svg.attr('height', diameter);
 
         var format = d3.format(",d");
@@ -63,7 +63,7 @@ export class BubbleChartDirective implements ng.IDirective {
         node.exit().remove();
     }
 
-    flattenData(root) {
+    static flattenData(root) {
         var classes = [];
         function recurse(name, node) {
             if (node.children) node.children.forEach(function (child) { recurse(node.name, child); });
