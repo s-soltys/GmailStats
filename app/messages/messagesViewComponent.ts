@@ -2,8 +2,6 @@ import * as angular from 'angular';
 import * as _ from 'lodash';
 import {LetterHistogramService} from './services/letterHistogramService';
 
-declare function require(string: string): string;
-
 export class MessageViewComponent implements angular.IComponentOptions {
     template: string = `
     <message-loader on-load-messages="vm.onLoadMessages(messages)"></message-loader>

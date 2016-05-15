@@ -5,13 +5,16 @@ import 'angular-sanitize';
 import 'angular-route';
 import './messages/messagesModule';
 import './charts/chartsModule';
+import './exception/exceptionHandlerModule';
+import './declarations';
 
 angular
 .module('gmailHistogramApp', [
   'ngRoute',
   'ngSanitize',
   'gs.charts',
-  'gs.messages'
+  'gs.messages',
+  'app.exception'
 ]);
 
 import './routes';
