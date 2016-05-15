@@ -1,7 +1,7 @@
-import * as angular from 'angular';
+import * as ng from 'angular';
 import * as d3 from 'd3';
 
-export class BubbleChartDirective implements angular.IDirective {
+export class BubbleChartDirective implements ng.IDirective {
     restrict: string = 'EA';
 
     scope: any = {
@@ -10,30 +10,32 @@ export class BubbleChartDirective implements angular.IDirective {
 
     link: Function;
 
-    constructor(private $window: angular.IWindowService) {
-        this.link = (scope: any, element: angular.IAugmentedJQuery, attrs: angular.IAttributes) => {
-            var diameter = 450;
+    constructor(private $window: ng.IWindowService) {
+        this.link = (scope: any, element: ng.IAugmentedJQuery, attrs: ng.IAttributes) => {
             var svg = d3.select(element[0]).append('svg');
-
+            
             svg.attr({
-                'width': diameter,
-                'height': diameter,
+                'width': '100%',
                 'class': 'bubble'
             });
+            
+            var svgElement = element.find('svg')[0];
 
             $window.onresize = () => scope.$apply();
 
             scope.$watch(
-                () => angular.element($window)[0].innerWidth,
-                () => this.draw(svg, diameter, scope.data));
+                () => svgElement.clientWidth,
+                () => this.draw(svg, svgElement.clientWidth, scope.data));
 
             scope.$watch(
                 'data',
-                () => this.draw(svg, diameter, scope.data));
+                () => this.draw(svg, svgElement.clientWidth, scope.data));
         };
     }
 
     draw(svg: d3.Selection<any>, diameter: number, inputData: any) {
+        svg.attr('height', diameter);
+
         var format = d3.format(",d");
         var color = d3.scale.category20c();
 
@@ -71,8 +73,8 @@ export class BubbleChartDirective implements angular.IDirective {
         return { children: classes };
     }
 
-    public static Factory(): angular.IDirectiveFactory {
-        const directive = ($window: angular.IWindowService) => new BubbleChartDirective($window);
+    public static Factory(): ng.IDirectiveFactory {
+        const directive = ($window: ng.IWindowService) => new BubbleChartDirective($window);
 
         directive['$inject'] = ['$window'];
 
