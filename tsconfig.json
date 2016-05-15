@@ -2,7 +2,8 @@
     "compilerOptions": {
         "sourceMap": true,
         "noImplicitAny": false,
-        "removeComments": true
+        "removeComments": true,
+        "target": "es5"
     },
     "exclude": [
         "dist",

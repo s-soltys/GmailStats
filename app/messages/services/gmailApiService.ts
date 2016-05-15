@@ -12,7 +12,7 @@ export class GmailApiService {
 
     }
 
-    authorize(event): angular.IPromise<any> {
+    authorize(): angular.IPromise<any> {
         return this.$q(function (resolve, reject) {
             gapi.auth.authorize(
                 { 'client_id': GmailApiService.CLIENT_ID, 'scope': GmailApiService.SCOPES, 'immediate': false },
@@ -32,7 +32,7 @@ export class GmailApiService {
         });
     }
 
-    getMessageList(): angular.IPromise<any> {
+    getMessageList(): angular.IPromise<any[]> {
         return this
             .callApi(() => {
                 return gapi.client.gmail.users.messages.list({ 'userId': 'me' }); 
