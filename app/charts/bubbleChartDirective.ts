@@ -34,17 +34,19 @@ export class BubbleChartDirective implements ng.IDirective {
     }
 
     static draw(svg: d3.Selection<any>, diameter: number, inputData: any) {
+        console.time('Bubble Chart:');
+        
         svg.attr('height', diameter);
 
         var format = d3.format(",d");
         var color = d3.scale.category20c();
 
         var bubble = d3.layout.pack()
-            .sort(null)
+            .sort((a: any, b: any) => a.className - b.className)
             .size([diameter, diameter])
-            .padding(1.5);
-
-        var flatData = bubble.nodes(this.flattenData(inputData)).filter(function (d) { return !d.children; });
+            .padding(5);
+            
+        var flatData = bubble.nodes(this.flattenData(inputData)).filter((n: any) => !n.children);
 
         var node = svg.selectAll("g").data(flatData);
 
@@ -61,6 +63,8 @@ export class BubbleChartDirective implements ng.IDirective {
         node.select("text").text((d: any) => d.className.toUpperCase());
 
         node.exit().remove();
+        
+        console.timeEnd('Bubble Chart:');
     }
 
     static flattenData(root) {
