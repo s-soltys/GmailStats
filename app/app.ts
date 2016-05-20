@@ -7,6 +7,7 @@ import './messages/messagesModule';
 import './charts/chartsModule';
 import './exception/exceptionHandlerModule';
 import './declarations';
+import {RouteConfig} from './routes';
 
 angular
 .module('gmailHistogramApp', [
@@ -15,6 +16,5 @@ angular
   'gs.charts',
   'gs.messages',
   'app.exception'
-]);
-
-import './routes';
+])
+.config(RouteConfig);
